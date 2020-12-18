@@ -1,6 +1,6 @@
 import json
 from flask import Flask, render_template, make_response
-# from flask_cors import CORS, cross_origin
+from flask_cors import CORS, cross_origin
 from flask_restful import Api, Resource, reqparse
 from colormath.color_objects import sRGBColor, LabColor
 from colormath.color_conversions import convert_color
@@ -8,7 +8,7 @@ from colormath.color_diff import delta_e_cie2000
 from operator import itemgetter
 
 app = Flask(__name__)
-# cors = CORS(app)
+cors = CORS(app)
 api = Api(app)
 
 rgb_post_args = reqparse.RequestParser()
@@ -17,7 +17,7 @@ rgb_post_args.add_argument("g", type=int, help="RGB green value")
 rgb_post_args.add_argument("b", type=int, help="RGB blue value")
 
 class Catalog(Resource):
-    # @cross_origin()
+    @cross_origin()
     def post(self):
         args = rgb_post_args.parse_args()
         response = {}
@@ -58,7 +58,7 @@ class Catalog(Resource):
 
         return response
 
-    # @cross_origin()
+    @cross_origin()
     def get(self):
         response = make_response(render_template("index.html"))
         response.headers['content-type'] = 'html'
