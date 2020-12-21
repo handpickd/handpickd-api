@@ -18,7 +18,7 @@ rgb_post_args.add_argument("b", type=int, help="RGB blue value")
 
 class Catalog(Resource):
     @cross_origin()
-    def get(self):
+    def post(self):
         args = rgb_post_args.parse_args()
         response = {}
 
@@ -58,11 +58,11 @@ class Catalog(Resource):
 
         return response
 
-    # @cross_origin()
-    # def get(self):
-    #     response = make_response(render_template("index.html"))
-    #     response.headers['content-type'] = 'html'
-    #     return response
+    @cross_origin()
+    def get(self):
+        response = make_response(render_template("index.html"))
+        response.headers['content-type'] = 'html'
+        return response
 
 api.add_resource(Catalog, '/')
 
