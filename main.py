@@ -7,6 +7,11 @@ from colormath.color_conversions import convert_color
 from colormath.color_diff import delta_e_cie2000
 from operator import itemgetter
 
+def patch_asscalar(a):
+    return a.item()
+
+setattr(numpy, "asscalar", patch_asscalar)
+
 app = Flask(__name__)
 cors = CORS(app)
 api = Api(app)
